@@ -1,0 +1,120 @@
+/* ═══════════════════════════════════════════════════════
+   GhostTag v1.1 — Styles
+   Namespace: gt- (GhostTag)
+   ═══════════════════════════════════════════════════════ */
+
+/* ━━━ Stealth Mode (cursor outside) ━━━━━━━━━━━━━━━━━━ */
+
+.gt-delim {
+  color: transparent;
+}
+
+.gt-content {
+  color: transparent;
+  transition: color var(--gt-transition, 250ms) ease;
+}
+
+/* Hover → reveal */
+.gt-wrapper:hover .gt-content {
+  color: var(--text-faint);
+  opacity: var(--gt-hover-opacity, 0.55);
+}
+
+.gt-wrapper:hover .gt-delim {
+  color: var(--text-faint);
+  opacity: calc(var(--gt-hover-opacity, 0.55) * 0.45);
+  transition: color var(--gt-transition, 250ms) ease,
+    opacity var(--gt-transition, 250ms) ease;
+}
+
+/* ━━━ Edit Mode (cursor inside) ━━━━━━━━━━━━━━━━━━━━━ */
+
+.gt-delim-edit {
+  color: var(--text-faint);
+  opacity: var(--gt-edit-delim-opacity, 0.35);
+}
+
+.gt-content-edit {
+  color: var(--text-muted);
+  opacity: var(--gt-edit-opacity, 0.75);
+}
+
+/* ━━━ Print / PDF Export ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media print {
+
+  .gt-wrapper,
+  .gt-delim,
+  .gt-content,
+  .gt-delim-edit,
+  .gt-content-edit {
+    display: none !important;
+  }
+}
+
+/* ━━━ Ghost Scanner Sidebar ━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.gt-scanner-header {
+  padding: 12px 16px 8px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.gt-scanner-header h4 {
+  margin: 0 0 4px 0;
+  font-size: 1em;
+}
+
+.gt-scanner-filename {
+  color: var(--text-faint);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.gt-scanner-count {
+  display: inline-block;
+  background: var(--background-modifier-border);
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.8em;
+  color: var(--text-muted);
+}
+
+.gt-scanner-empty {
+  padding: 16px;
+  color: var(--text-faint);
+  font-style: italic;
+  text-align: center;
+}
+
+.gt-scanner-list {
+  padding: 4px 0;
+}
+
+.gt-scanner-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.gt-scanner-item:hover {
+  background: var(--background-modifier-hover);
+}
+
+.gt-scanner-line {
+  flex-shrink: 0;
+  font-size: 0.75em;
+  font-family: var(--font-monospace);
+  color: var(--text-faint);
+  min-width: 32px;
+}
+
+.gt-scanner-text {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
