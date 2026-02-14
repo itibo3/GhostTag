@@ -2,3 +2,8 @@ node_modules/
 .DS_Store
 .idea/
 .vscode/
+
+# Build artifacts (not for source control)
+main.js
+manifest.json
+styles.css
