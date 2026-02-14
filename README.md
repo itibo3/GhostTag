@@ -200,11 +200,31 @@ revealed only when you choose to observe them.
 
 ## 📸 Screenshots
 
-*(Coming soon)*
+### 🎭 Beautifully Hidden
+GhostTag blends seamlessly into your workflow.
+
+![Main Demo](assets/demo_main.png)
+
+### 👀 Hover to Reveal
+Your thoughts are always there, just waiting for your attention.
+
+![Hover Effect](assets/demo_hover.png)
+
+### 🔍 Never Lose a Ghost
+The Ghost Scanner helps you find every hidden thought instantly.
+
+![Ghost Scanner](assets/demo_scanner.png)
+
+### ⚙️ Your Style, Your Rules
+Customize opacity, animations, and more to fit your theme.
+
+![Settings](assets/demo_settings.png)
 
 ## 🎥 Demo Video
 
-*(Coming soon)*
+See GhostTag in action (YouTube Shorts):
+
+[![GhostTag Demo](https://img.youtube.com/vi/hO_wYS7KTn0/0.jpg)](https://www.youtube.com/shorts/hO_wYS7KTn0)
 
 ---
 
