@@ -5,5 +5,3 @@ node_modules/
 
 # Build artifacts (not for source control)
 main.js
-manifest.json
-styles.css
