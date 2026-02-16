@@ -15,10 +15,14 @@ export class GhostTagSettingTab extends PluginSettingTab {
         const t = getLocale();
         containerEl.empty();
 
-        containerEl.createEl("h2", { text: t.settingsTitle });
+        new Setting(containerEl)
+            .setName(t.settingsTitle)
+            .setHeading();
 
         // ━━━ Delimiters ━━━
-        containerEl.createEl("h3", { text: t.sectionDelimiter });
+        new Setting(containerEl)
+            .setName(t.sectionDelimiter)
+            .setHeading();
 
         new Setting(containerEl)
             .setName(t.startDelimiterName)
@@ -49,7 +53,9 @@ export class GhostTagSettingTab extends PluginSettingTab {
             );
 
         // ━━━ Display ━━━
-        containerEl.createEl("h3", { text: t.sectionDisplay });
+        new Setting(containerEl)
+            .setName(t.sectionDisplay)
+            .setHeading();
 
         new Setting(containerEl)
             .setName(t.hoverOpacityName)
@@ -108,7 +114,9 @@ export class GhostTagSettingTab extends PluginSettingTab {
             );
 
         // ━━━ Copy behavior ━━━
-        containerEl.createEl("h3", { text: t.sectionCopy });
+        new Setting(containerEl)
+            .setName(t.sectionCopy)
+            .setHeading();
 
         new Setting(containerEl)
             .setName(t.autoStripName)

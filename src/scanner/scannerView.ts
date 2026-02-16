@@ -22,7 +22,7 @@ export class GhostScannerView extends ItemView {
     }
 
     getDisplayText(): string {
-        return "Ghost Scanner";
+        return "Ghost scanner";
     }
 
     getIcon(): string {
@@ -37,14 +37,17 @@ export class GhostScannerView extends ItemView {
             this.app.workspace.on("editor-change", () => this.refresh())
         );
         this.refresh();
+        return Promise.resolve();
     }
 
     async onClose(): Promise<void> { }
 
     /** Get the plugin instance to access settings */
     private getPlugin(): GhostTagPlugin | null {
-        // @ts-ignore — community plugins are accessed via app
-        return (this.app as any).plugins?.plugins?.["ghost-tag"] as GhostTagPlugin ?? null;
+        // Access plugins properly via app
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const plugins = (this.app as any).plugins;
+        return plugins?.plugins?.["ghost-tag"] as GhostTagPlugin ?? null;
     }
 
     /** Build regex from current plugin settings */

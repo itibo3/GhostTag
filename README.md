@@ -38,7 +38,8 @@ Place your cursor inside, and it becomes fully visible for editing.
 ### 👻 Ghostify Toggle
 Select any text and instantly wrap it with Ghost delimiters — or unwrap it to toggle off.
 
-- **Shortcut**: `Ctrl+Shift+G` (or `Cmd+Shift+G` on Mac)
+- **Shortcut**: No default hotkey assigned (to prevent conflicts).
+  - Recommended: Set `Ctrl+Shift+G` (or `Cmd+Shift+G`) in **Settings > Hotkeys**.
 - Also available from the right-click menu and Command Palette
 - Works on empty selections too — inserts delimiters and places your cursor between them
 
@@ -102,8 +103,10 @@ The wrapped portion becomes transparent and reveals itself on hover.
 
 ### Ghostify Toggle
 
-Select any text and press `Ctrl+Shift+G` to wrap it in Ghost delimiters.
-Press again on wrapped text to unwrap — a seamless toggle.
+Select any text and trigger the command (via Palette or your custom hotkey) to wrap it in Ghost delimiters.
+Execute again on wrapped text to unwrap — a seamless toggle.
+
+> **Note:** Please assign a hotkey (e.g., `Ctrl+Shift+G`) in Obsidian Settings > Hotkeys > **GhostTag: Ghostify selection**.
 
 ### Open Ghost Scanner
 

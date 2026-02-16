@@ -63,7 +63,7 @@ const ja: GhostTagLocale = {
 };
 
 const en: GhostTagLocale = {
-    settingsTitle: "GhostTag Settings",
+    settingsTitle: "GhostTag settings",
     sectionDelimiter: "Delimiters",
     startDelimiterName: "Start delimiter",
     startDelimiterDesc: "Symbol that opens a GhostTag (e.g. %%, ((, ==)",
@@ -83,9 +83,9 @@ const en: GhostTagLocale = {
     autoStripDesc: "When ON, Ctrl+C automatically removes GhostTags from copied text",
     copyWithTags: "👻 Copy with GhostTags",
     copyWithoutTags: "👻 Copy without GhostTags",
-    ghostifySelection: "👻 Ghostify Selection",
-    openScanner: "Open Ghost Scanner",
-    scannerTitle: "👻 Ghost Scanner",
+    ghostifySelection: "👻 Ghostify selection",
+    openScanner: "Open Ghost scanner",
+    scannerTitle: "👻 Ghost scanner",
     scannerEmpty: "No GhostTags in this note",
     scannerNoNote: "Open a markdown note first",
     scannerCount: (n) => `${n} found`,

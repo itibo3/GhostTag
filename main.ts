@@ -1,4 +1,4 @@
-import { Plugin, WorkspaceLeaf, MarkdownView, Menu, Editor } from 'obsidian';
+import { Plugin, WorkspaceLeaf, Menu, Editor } from 'obsidian';
 import { ghostTagPlugin, ghostConfigFacet, GhostEditorConfig } from './src/editor/ghostExtension';
 import { ghostCopyHandler, ghostCopyConfigFacet, GhostCopyConfig, stripGhostTags } from './src/editor/copyHandler';
 import { GhostTagSettingTab } from './src/settings/settingTab';
@@ -14,7 +14,7 @@ export default class GhostTagPlugin extends Plugin {
     private copyConfigCompartment = new Compartment();
 
     async onload(): Promise<void> {
-        console.log('GhostTag v1.6: Loading...');
+        console.debug('GhostTag v1.6: Loading...');
 
         await this.loadSettings();
 
@@ -43,14 +43,14 @@ export default class GhostTagPlugin extends Plugin {
 
         // Ribbon icon (toggle)
         this.addRibbonIcon("search", "Ghost Scanner", () => {
-            this.activateScanner();
+            void this.activateScanner();
         });
 
         // Commands
         this.addCommand({
             id: "open-ghost-scanner",
             name: t.openScanner,
-            callback: () => this.activateScanner(),
+            callback: () => { void this.activateScanner(); },
         });
 
         this.addCommand({
@@ -59,7 +59,7 @@ export default class GhostTagPlugin extends Plugin {
             editorCallback: (editor) => {
                 const selection = editor.getSelection();
                 if (selection.length > 0) {
-                    navigator.clipboard.writeText(selection);
+                    void navigator.clipboard.writeText(selection);
                 }
             },
         });
@@ -75,7 +75,7 @@ export default class GhostTagPlugin extends Plugin {
                         this.settings.startDelimiter,
                         this.settings.endDelimiter
                     );
-                    navigator.clipboard.writeText(stripped);
+                    void navigator.clipboard.writeText(stripped);
                 }
             },
         });
@@ -84,7 +84,6 @@ export default class GhostTagPlugin extends Plugin {
             id: "ghostify-selection",
             name: t.ghostifySelection,
             editorCallback: (editor) => this.ghostifySelection(editor),
-            hotkeys: [{ modifiers: ["Mod", "Shift"], key: "g" }],
         });
 
         // Right-click context menu
@@ -106,7 +105,7 @@ export default class GhostTagPlugin extends Plugin {
                         item.setTitle(t.copyWithTags)
                             .setIcon("copy")
                             .onClick(() => {
-                                navigator.clipboard.writeText(selection);
+                                void navigator.clipboard.writeText(selection);
                             });
                     });
 
@@ -119,7 +118,7 @@ export default class GhostTagPlugin extends Plugin {
                                     this.settings.startDelimiter,
                                     this.settings.endDelimiter
                                 );
-                                navigator.clipboard.writeText(stripped);
+                                void navigator.clipboard.writeText(stripped);
                             });
                     });
                 }
@@ -131,7 +130,7 @@ export default class GhostTagPlugin extends Plugin {
     }
 
     onunload(): void {
-        console.log('GhostTag v1.6: Unloading...');
+        console.debug('GhostTag v1.6: Unloading...');
         // Clean up CSS variables
         const props = [
             "--gt-hover-opacity",
@@ -169,7 +168,7 @@ export default class GhostTagPlugin extends Plugin {
 
     private reconfigureEditorExtension(): void {
         this.app.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => {
-            const editor = (leaf.view as any)?.editor?.cm as any;
+            const editor = (leaf.view as any)?.editor?.cm;
             if (editor?.dispatch) {
                 editor.dispatch({
                     effects: [
@@ -202,7 +201,7 @@ export default class GhostTagPlugin extends Plugin {
         }
         const leaf = this.app.workspace.getRightLeaf(false);
         if (leaf) {
-            await leaf.setViewState({
+            void leaf.setViewState({
                 type: SCANNER_VIEW_TYPE,
                 active: true,
             });
