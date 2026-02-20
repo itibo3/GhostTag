@@ -1,4 +1,4 @@
-import { ItemView, WorkspaceLeaf, MarkdownView } from "obsidian";
+import { ItemView, WorkspaceLeaf } from "obsidian";
 import type GhostTagPlugin from "../../main";
 import { getLocale } from "../i18n";
 
@@ -45,9 +45,8 @@ export class GhostScannerView extends ItemView {
     /** Get the plugin instance to access settings */
     private getPlugin(): GhostTagPlugin | null {
         // Access plugins properly via app
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const plugins = (this.app as any).plugins;
-        return plugins?.plugins?.["ghost-tag"] as GhostTagPlugin ?? null;
+        const appWithPlugins = this.app as unknown as Record<string, Record<string, Record<string, GhostTagPlugin>>>;
+        return appWithPlugins?.plugins?.plugins?.["ghost-tag"] ?? null;
     }
 
     /** Build regex from current plugin settings */
@@ -68,7 +67,7 @@ export class GhostScannerView extends ItemView {
         header.createEl("h4", { text: t.scannerTitle });
 
         // Get active markdown view
-        const mdView = this.app.workspace.getActiveViewOfType(MarkdownView);
+        const mdView = this.app.workspace.activeEditor;
         if (!mdView) {
             container.createEl("p", {
                 text: t.scannerNoNote,
@@ -135,11 +134,11 @@ export class GhostScannerView extends ItemView {
 
             // Click to jump (skip delimiter length)
             item.addEventListener("click", () => {
-                const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-                if (!view) return;
-                const pos = view.editor.offsetToPos(match.offset + delimLen);
-                view.editor.setCursor(pos);
-                view.editor.focus();
+                const activeEditor = this.app.workspace.activeEditor;
+                if (!activeEditor?.editor) return;
+                const pos = activeEditor.editor.offsetToPos(match.offset + delimLen);
+                activeEditor.editor.setCursor(pos);
+                activeEditor.editor.focus();
             });
         }
     }

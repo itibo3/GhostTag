@@ -42,7 +42,7 @@ export default class GhostTagPlugin extends Plugin {
         const t = getLocale();
 
         // Ribbon icon (toggle)
-        this.addRibbonIcon("search", "Ghost Scanner", () => {
+        this.addRibbonIcon("search", "Ghost scanner", () => {
             void this.activateScanner();
         });
 
@@ -54,7 +54,7 @@ export default class GhostTagPlugin extends Plugin {
         });
 
         this.addCommand({
-            id: "copy-with-ghost-tags",
+            id: "copy-with-tags",
             name: t.copyWithTags,
             editorCallback: (editor) => {
                 const selection = editor.getSelection();
@@ -65,7 +65,7 @@ export default class GhostTagPlugin extends Plugin {
         });
 
         this.addCommand({
-            id: "copy-without-ghost-tags",
+            id: "copy-without-tags",
             name: t.copyWithoutTags,
             editorCallback: (editor) => {
                 const selection = editor.getSelection();
@@ -168,7 +168,9 @@ export default class GhostTagPlugin extends Plugin {
 
     private reconfigureEditorExtension(): void {
         this.app.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => {
-            const editor = (leaf.view as any)?.editor?.cm;
+            const view = leaf.view as unknown as Record<string, unknown>;
+            const editorObj = view?.editor as Record<string, unknown> | undefined;
+            const editor = editorObj?.cm as { dispatch?: (transaction: Record<string, unknown>) => void } | undefined;
             if (editor?.dispatch) {
                 editor.dispatch({
                     effects: [
@@ -201,7 +203,7 @@ export default class GhostTagPlugin extends Plugin {
         }
         const leaf = this.app.workspace.getRightLeaf(false);
         if (leaf) {
-            void leaf.setViewState({
+            await leaf.setViewState({
                 type: SCANNER_VIEW_TYPE,
                 active: true,
             });
@@ -250,14 +252,18 @@ export default class GhostTagPlugin extends Plugin {
                 const inner = text.slice(sd.length, text.length - ed.length);
                 editor.replaceRange(inner, from, to);
                 // Select the unwrapped content
-                editor.setSelection(from, { line: from.line + inner.split("\n").length - 1, ch: inner.includes("\n") ? inner.split("\n").pop()!.length : from.ch + inner.length });
+                const innerLines = inner.split("\n");
+                const lastInnerLine = innerLines[innerLines.length - 1];
+                editor.setSelection(from, { line: from.line + innerLines.length - 1, ch: innerLines.length > 1 ? lastInnerLine.length : from.ch + inner.length });
             } else {
                 // Not wrapped → wrap (toggle on)
                 const wrapped = sd + text + ed;
                 editor.replaceRange(wrapped, from, to);
                 // Select the entire wrapped text (including delimiters)
-                const newEndLine = from.line + wrapped.split("\n").length - 1;
-                const newEndCh = wrapped.includes("\n") ? wrapped.split("\n").pop()!.length : from.ch + wrapped.length;
+                const wrappedLines = wrapped.split("\n");
+                const lastWrappedLine = wrappedLines[wrappedLines.length - 1];
+                const newEndLine = from.line + wrappedLines.length - 1;
+                const newEndCh = wrappedLines.length > 1 ? lastWrappedLine.length : from.ch + wrapped.length;
                 editor.setSelection(from, { line: newEndLine, ch: newEndCh });
             }
         }
