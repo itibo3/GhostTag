@@ -76,10 +76,18 @@ export class GhostScannerView extends ItemView {
             return;
         }
 
+        const editor = mdView.editor;
+        if (!editor) {
+            container.createEl("p", {
+                text: t.scannerNoNote,
+                cls: "gt-scanner-empty",
+            });
+            return;
+        }
+
         const plugin = this.getPlugin();
         const delimLen = (plugin?.settings?.startDelimiter ?? "%%").length;
 
-        const editor = mdView.editor;
         const text = editor.getValue();
         const fileName = mdView.file?.basename ?? "Unknown";
 
