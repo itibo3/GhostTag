@@ -207,7 +207,7 @@ export default class GhostTagPlugin extends Plugin {
                 type: SCANNER_VIEW_TYPE,
                 active: true,
             });
-            this.app.workspace.revealLeaf(leaf);
+            await this.app.workspace.revealLeaf(leaf);
         }
     }
 
