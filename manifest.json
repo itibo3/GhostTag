@@ -1,7 +1,7 @@
 {
   "id": "ghost-tag",
   "name": "GhostTag",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "minAppVersion": "0.15.0",
   "description": "Manage hidden emotional data within your notes. Stealth mode, scanner, copy protection, and ghostify toggle.",
   "author": "Itibo",
